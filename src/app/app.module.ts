@@ -6,7 +6,7 @@ import { NgbModalModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AddTransactionComponent } from './components/add-transaction/add-transaction.component';
+import { AddEditTransactionComponent } from './components/add-edit-transaction/add-edit-transaction.component';
 import { TransactionsListComponent } from './components/transactions-list/transactions-list.component';
 import { ViewTransactionComponent } from './components/view-transaction/view-transaction.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -18,7 +18,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     AppComponent,
     TransactionsListComponent,
     ViewTransactionComponent,
-    AddTransactionComponent,
+    AddEditTransactionComponent,
     HomeComponent,
     SummaryComponent,
   ],

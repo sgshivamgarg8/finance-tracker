@@ -22,11 +22,11 @@ type TransactionForm = {
 };
 
 @Component({
-  selector: 'app-add-transaction',
-  templateUrl: './add-transaction.component.html',
-  styleUrls: ['./add-transaction.component.scss'],
+  selector: 'app-add-edit-transaction',
+  templateUrl: './add-edit-transaction.component.html',
+  styleUrls: ['./add-edit-transaction.component.scss'],
 })
-export class AddTransactionComponent implements OnInit {
+export class AddEditTransactionComponent implements OnInit {
   private fb = inject(FormBuilder);
   private transactionService = inject(TransactionService);
 
