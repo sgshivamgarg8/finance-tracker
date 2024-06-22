@@ -1,7 +1,7 @@
 <form [formGroup]="addTransactionForm" (submit)="onSave()">
   <div class="row">
     <!-- Description -->
-    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+    <div class="col-12 col-sm-6 col-md-6 col-lg-4">
       <label class="form-label" for="description">Description</label>
       <input
         id="description"
@@ -27,7 +27,7 @@
     </div>
 
     <!-- Amount -->
-    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+    <div class="col-12 col-sm-6 col-md-6 col-lg-4">
       <label class="form-label" for="amount">Amount</label>
       <div class="input-group">
         <span class="input-group-text">&#8377;</span>
@@ -59,7 +59,7 @@
     </div>
 
     <!-- Type -->
-    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+    <div class="col-12 col-sm-6 col-md-6 col-lg-4">
       <label class="form-label" for="type">Type</label>
       <ng-select
         labelForId="type"
