@@ -20,7 +20,7 @@ export class AddTransactionComponent {
   ];
 
   addTransactionForm = this.fb.group({
-    amount: new FormControl<number | null>(null, [Validators.required]),
+    amount: new FormControl<string | null>(null, [Validators.required]),
     description: new FormControl<string | null>(null, [Validators.required]),
     type: new FormControl<string>('expense', {
       nonNullable: true,
@@ -38,7 +38,7 @@ export class AddTransactionComponent {
     }
 
     const data: Omit<Transaction, 'id' | 'date'> = {
-      amount: formValues.amount,
+      amount: parseInt(formValues.amount),
       description: formValues.description,
       type:
         formValues.type === 'expense'
