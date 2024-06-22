@@ -23,11 +23,24 @@ export class TransactionService {
       date: new Date(Date.now()),
     };
 
-    const newTxns = [...this.transactions$.value, transaction];
+    const newTransactions = [...this.transactions$.value, transaction];
 
     this.localStorageService.setItem(
       TRANSACTIONS_ARRAY_LOCAL_STORAGE_KEY,
-      newTxns,
+      newTransactions,
+    );
+  }
+
+  removeTransaction(id: string): void {
+    const transactions = this.transactions$.value;
+
+    const index = transactions.findIndex((txn) => txn.id === id);
+
+    transactions.splice(index, 1);
+
+    this.localStorageService.setItem(
+      TRANSACTIONS_ARRAY_LOCAL_STORAGE_KEY,
+      transactions,
     );
   }
 }

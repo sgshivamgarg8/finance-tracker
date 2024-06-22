@@ -11,6 +11,7 @@ import { TransactionsListComponent } from './components/transactions-list/transa
 import { ViewTransactionComponent } from './components/view-transaction/view-transaction.component';
 import { HomeComponent } from './pages/home/home.component';
 import { SummaryComponent } from './components/summary/summary.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { SummaryComponent } from './components/summary/summary.component';
     NgSelectModule,
     NgbModalModule,
     NgbTooltipModule,
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -23,10 +23,10 @@ export class TransactionsListComponent {
           return -1;
         }
       });
-    })
+    }),
   );
 
-  identify(index: number, item: Transaction) {
+  identify(_: number, item: Transaction): string {
     return item.id;
   }
 }

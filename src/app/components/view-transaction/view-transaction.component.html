@@ -7,8 +7,17 @@
   "
 >
   <div class="card-header">
-    <div class="text-truncate" [ngbTooltip]="transaction.description">
-      {{ transaction.description }}
+    <div class="d-flex justify-content-between">
+      <div class="text-truncate" [ngbTooltip]="transaction.description">
+        {{ transaction.description }}
+      </div>
+      <fa-icon
+        [icon]="deleteIcon"
+        (click)="remove(transaction.id)"
+        role="button"
+        ngbTooltip="Delete"
+        aria-label="Delete"
+      ></fa-icon>
     </div>
   </div>
   <div class="card-body">
