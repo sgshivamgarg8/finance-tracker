@@ -1,16 +1,30 @@
 import { Component, inject } from '@angular/core';
+import { map } from 'rxjs';
 import { Transaction } from 'src/app/models/transaction.model';
 import { TransactionService } from 'src/app/services/transaction.service';
 
 @Component({
   selector: 'app-transactions-list',
   templateUrl: './transactions-list.component.html',
-  styleUrls: ['./transactions-list.component.scss']
+  styleUrls: ['./transactions-list.component.scss'],
 })
 export class TransactionsListComponent {
   private transactionService = inject(TransactionService);
 
-  transactions$ = this.transactionService.getTransactions();
+  transactions$ = this.transactionService.transactions$.pipe(
+    map((transactions) => {
+      // Sort the transactions by date, latest at first
+      return transactions.sort((a, b) => {
+        if (a.date === b.date) {
+          return 0;
+        } else if (a.date < b.date) {
+          return 1;
+        } else {
+          return -1;
+        }
+      });
+    })
+  );
 
   identify(index: number, item: Transaction) {
     return item.id;

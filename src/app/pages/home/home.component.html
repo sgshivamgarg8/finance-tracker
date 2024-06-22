@@ -1,0 +1,7 @@
+<button class="btn btn-primary" (click)="addTransaction()">
+  Add New Transaction
+</button>
+
+<app-add-transaction *ngIf="showAddTransactionCard"></app-add-transaction>
+
+<app-transactions-list></app-transactions-list>
