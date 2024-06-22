@@ -1,7 +1,23 @@
-<button class="btn btn-primary" (click)="addTransaction()">
+<button class="btn btn-primary" (click)="openAddTransactionModal(content)">
   Add New Transaction
 </button>
 
-<app-add-transaction *ngIf="showAddTransactionCard"></app-add-transaction>
-
 <app-transactions-list></app-transactions-list>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Add New Transaction</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss()"
+    ></button>
+  </div>
+
+  <div class="modal-body">
+    <app-add-transaction
+      (addTransaction)="onTrancactionAdd()"
+    ></app-add-transaction>
+  </div>
+</ng-template>

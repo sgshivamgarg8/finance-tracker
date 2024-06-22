@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { TransactionService } from 'src/app/services/transaction.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-home',
@@ -7,11 +7,13 @@ import { TransactionService } from 'src/app/services/transaction.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  private transactionService = inject(TransactionService);
+  private modalService = inject(NgbModal);
 
-  showAddTransactionCard = false;
+  openAddTransactionModal(content: any): void {
+    this.modalService.open(content, { size: 'xl', centered: true });
+  }
 
-  addTransaction() {
-    this.showAddTransactionCard = true;
+  onTrancactionAdd(): void {
+    this.modalService.dismissAll();
   }
 }
