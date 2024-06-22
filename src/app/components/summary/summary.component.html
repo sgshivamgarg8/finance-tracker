@@ -1,22 +1,29 @@
 <div class="card">
   <div class="card-header">Summary</div>
   <div class="card-body">
-    <ng-container *ngIf="totalIncome$ | async as totalIncome">
-      <ng-container *ngIf="totalExpense$ | async as totalExpense">
-        <div>
-          <strong>Total Income:</strong>
-          {{ totalIncome | currency: "INR" : "symbol" }}
-        </div>
+    <ng-container *ngIf="{ value: totalIncome$ | async } as totalIncome">
+      <ng-container *ngIf="{ value: totalExpense$ | async } as totalExpense">
+        <ng-container
+          *ngIf="totalIncome.value !== null && totalExpense.value !== null"
+        >
+          <div>
+            <strong>Total Income:</strong>
+            {{ totalIncome.value | currency: "INR" : "symbol" }}
+          </div>
 
-        <div class="mt-2">
-          <strong>Total Expense:</strong>
-          {{ totalExpense | currency: "INR" : "symbol" }}
-        </div>
+          <div class="mt-2">
+            <strong>Total Expense:</strong>
+            {{ totalExpense.value | currency: "INR" : "symbol" }}
+          </div>
 
-        <div class="mt-2">
-          <strong>Balance:</strong>
-          {{ totalIncome - totalExpense | currency: "INR" : "symbol" }}
-        </div>
+          <div class="mt-2">
+            <strong>Balance:</strong>
+            {{
+              totalIncome.value - totalExpense.value
+                | currency: "INR" : "symbol"
+            }}
+          </div>
+        </ng-container>
       </ng-container>
     </ng-container>
   </div>

@@ -16,7 +16,7 @@ export class SummaryComponent {
       transactions.filter((txn) => txn.type === TransactionType.income),
     ),
     map((transactions) => transactions.map((txn) => txn.amount)),
-    map((transactions) => transactions.reduce((acc, val) => acc + val)),
+    map((transactions) => transactions.reduce((acc, val) => acc + val, 0)),
   );
 
   totalExpense$ = this.transactionService.transactions$.pipe(
@@ -24,6 +24,6 @@ export class SummaryComponent {
       transactions.filter((txn) => txn.type === TransactionType.expense),
     ),
     map((transactions) => transactions.map((txn) => txn.amount)),
-    map((transactions) => transactions.reduce((acc, val) => acc + val)),
+    map((transactions) => transactions.reduce((acc, val) => acc + val, 0)),
   );
 }

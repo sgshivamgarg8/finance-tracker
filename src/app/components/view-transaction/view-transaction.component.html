@@ -12,7 +12,15 @@
     </div>
   </div>
   <div class="card-body">
-    <div>{{ transaction.amount | currency: "INR" : "symbol" }}</div>
+    <div
+      [ngClass]="
+        transaction.type === eTransactionType.expense
+          ? 'text-danger'
+          : 'text-success'
+      "
+    >
+      {{ transaction.amount | currency: "INR" : "symbol" }}
+    </div>
     <div class="text-muted small">
       {{ transaction.date | date: "dd MMMM, YYYY" }}
     </div>
