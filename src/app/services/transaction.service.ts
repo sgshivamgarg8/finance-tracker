@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable, inject } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
-import { Transaction, TransactionType } from '../models/transaction.model';
+import { Transaction } from '../models/transaction.model';
+import { LocalStorageService } from './local-storage.service';
+import { TRANSACTIONS_ARRAY_LOCAL_STORAGE_KEY } from '../utils/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -9,9 +10,11 @@ import { Transaction, TransactionType } from '../models/transaction.model';
 export class TransactionService {
   constructor() {}
 
-  transactions: Transaction[] = [];
+  private localStorageService = inject(LocalStorageService);
 
-  transactions$ = new BehaviorSubject<Transaction[]>(this.transactions);
+  transactions$ = this.localStorageService.getItem<Transaction[]>(
+    TRANSACTIONS_ARRAY_LOCAL_STORAGE_KEY,
+  );
 
   addTransaction(transactionData: Omit<Transaction, 'id' | 'date'>): void {
     const transaction: Transaction = {
@@ -22,6 +25,9 @@ export class TransactionService {
 
     const newTxns = [...this.transactions$.value, transaction];
 
-    this.transactions$.next(newTxns);
+    this.localStorageService.setItem(
+      TRANSACTIONS_ARRAY_LOCAL_STORAGE_KEY,
+      newTxns,
+    );
   }
 }
