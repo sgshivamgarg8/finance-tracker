@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output, inject } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Transaction, TransactionType } from 'src/app/models/transaction.model';
 import { TransactionService } from 'src/app/services/transaction.service';
 
@@ -20,9 +20,12 @@ export class AddTransactionComponent {
   ];
 
   addTransactionForm = this.fb.group({
-    amount: new FormControl<number | null>(null),
-    description: new FormControl<string | null>(null),
-    type: new FormControl<string>('expense', { nonNullable: true }),
+    amount: new FormControl<number | null>(null, [Validators.required]),
+    description: new FormControl<string | null>(null, [Validators.required]),
+    type: new FormControl<string>('expense', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
   });
 
   onSave(): void {
@@ -30,7 +33,7 @@ export class AddTransactionComponent {
 
     if (formValues.amount === null || formValues.description === null) {
       throw new Error(
-        `amount or description is null, amount: ${formValues.amount}, description: ${formValues.description}`
+        `amount or description is null, amount: ${formValues.amount}, description: ${formValues.description}`,
       );
     }
 
@@ -48,5 +51,28 @@ export class AddTransactionComponent {
     this.addTransactionForm.reset();
 
     this.addTransaction.emit();
+  }
+
+  onKeyDownAmount(event: KeyboardEvent) {
+    const specialKeys: string[] = [
+      'Backspace',
+      'Tab',
+      'End',
+      'Home',
+      'ArrowLeft',
+      'ArrowRight',
+      'Del',
+      'Delete',
+    ];
+
+    // Allow special keys
+    if (specialKeys.includes(event.key)) {
+      return;
+    }
+
+    // Restrict all keys other than numbers
+    if (!(event.key >= '0' && event.key <= '9')) {
+      event.preventDefault();
+    }
   }
 }

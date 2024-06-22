@@ -2,3 +2,8 @@
 
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
+
+.invalid-message {
+    font-size: .875rem;
+    color: var(--bs-form-invalid-color);
+}
