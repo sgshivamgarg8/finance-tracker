@@ -7,10 +7,14 @@
   "
 >
   <div class="card-header">
-    <div>{{ transaction.description }}</div>
+    <div class="text-truncate" [ngbTooltip]="transaction.description">
+      {{ transaction.description }}
+    </div>
   </div>
   <div class="card-body">
-    <div>{{ transaction.amount | currency : "INR" : "symbol" }}</div>
-    <div>{{ transaction.date | date : "dd MMMM, YYYY" }}</div>
+    <div>{{ transaction.amount | currency: "INR" : "symbol" }}</div>
+    <div class="text-muted small">
+      {{ transaction.date | date: "dd MMMM, YYYY" }}
+    </div>
   </div>
 </div>

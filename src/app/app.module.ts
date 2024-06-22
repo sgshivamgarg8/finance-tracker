@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { ReactiveFormsModule } from '@angular/forms';
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,6 +10,7 @@ import { AddTransactionComponent } from './components/add-transaction/add-transa
 import { TransactionsListComponent } from './components/transactions-list/transactions-list.component';
 import { ViewTransactionComponent } from './components/view-transaction/view-transaction.component';
 import { HomeComponent } from './pages/home/home.component';
+import { SummaryComponent } from './components/summary/summary.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { HomeComponent } from './pages/home/home.component';
     ViewTransactionComponent,
     AddTransactionComponent,
     HomeComponent,
+    SummaryComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,6 +27,7 @@ import { HomeComponent } from './pages/home/home.component';
     ReactiveFormsModule,
     NgSelectModule,
     NgbModalModule,
+    NgbTooltipModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
