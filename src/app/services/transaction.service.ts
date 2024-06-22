@@ -31,6 +31,21 @@ export class TransactionService {
     );
   }
 
+  editTransaction(
+    transactionData: Omit<Transaction, 'id' | 'date'>,
+    id: string,
+  ): void {
+    const txns = this.transactions$.value;
+    const index = txns.findIndex((txn) => txn.id === id);
+    const txn = txns[index];
+    txns[index] = { ...txn, ...transactionData };
+
+    this.localStorageService.setItem(
+      TRANSACTIONS_ARRAY_LOCAL_STORAGE_KEY,
+      txns,
+    );
+  }
+
   removeTransaction(id: string): void {
     const transactions = this.transactions$.value;
 

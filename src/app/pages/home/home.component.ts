@@ -13,7 +13,7 @@ export class HomeComponent {
     this.modalService.open(content, { size: 'xl', centered: true });
   }
 
-  onTransactionAdd(): void {
+  onTransactionSave(): void {
     this.modalService.dismissAll();
   }
 }

@@ -8,16 +8,29 @@
 >
   <div class="card-header">
     <div class="d-flex justify-content-between">
+      <!-- description -->
       <div class="text-truncate" [ngbTooltip]="transaction.description">
         {{ transaction.description }}
       </div>
-      <fa-icon
-        [icon]="deleteIcon"
-        (click)="remove(transaction.id)"
-        role="button"
-        ngbTooltip="Delete"
-        aria-label="Delete"
-      ></fa-icon>
+
+      <!-- icons -->
+      <div>
+        <fa-icon
+          [icon]="editIcon"
+          (click)="onEditClick(content)"
+          class="me-3"
+          role="button"
+          ngbTooltip="Edit"
+          aria-label="Edit"
+        ></fa-icon>
+        <fa-icon
+          [icon]="deleteIcon"
+          (click)="onDeleteClick(transaction.id)"
+          role="button"
+          ngbTooltip="Delete"
+          aria-label="Delete"
+        ></fa-icon>
+      </div>
     </div>
   </div>
   <div class="card-body">
@@ -35,3 +48,23 @@
     </div>
   </div>
 </div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Edit Transaction</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss()"
+    ></button>
+  </div>
+
+  <div class="modal-body">
+    <app-add-transaction
+      [isEdit]="true"
+      [id]="transaction.id"
+      (save)="onTransactionSave()"
+    ></app-add-transaction>
+  </div>
+</ng-template>

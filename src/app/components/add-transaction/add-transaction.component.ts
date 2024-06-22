@@ -1,32 +1,92 @@
-import { Component, EventEmitter, Output, inject } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  inject,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Transaction, TransactionType } from 'src/app/models/transaction.model';
 import { TransactionService } from 'src/app/services/transaction.service';
+
+type TransactionForm = {
+  amount: FormControl<string | null>;
+  description: FormControl<string | null>;
+  type: FormControl<string>;
+};
 
 @Component({
   selector: 'app-add-transaction',
   templateUrl: './add-transaction.component.html',
   styleUrls: ['./add-transaction.component.scss'],
 })
-export class AddTransactionComponent {
+export class AddTransactionComponent implements OnInit {
   private fb = inject(FormBuilder);
   private transactionService = inject(TransactionService);
 
-  @Output() addTransaction = new EventEmitter<void>();
+  /** To be passed to edit the txn */
+  @Input() isEdit = false;
+
+  /** Must be passed if edit mode is true */
+  @Input() id?: string;
+
+  /** Emit the event on txn save */
+  @Output() save = new EventEmitter<void>();
 
   transactionTypeOptions = [
     { key: 'expense', name: 'Expense' },
     { key: 'income', name: 'Income' },
   ];
 
-  addTransactionForm = this.fb.group({
-    amount: new FormControl<string | null>(null, [Validators.required]),
-    description: new FormControl<string | null>(null, [Validators.required]),
-    type: new FormControl<string>('expense', {
-      nonNullable: true,
-      validators: [Validators.required],
-    }),
-  });
+  addTransactionForm!: FormGroup<TransactionForm>;
+
+  ngOnInit(): void {
+    let defaultValues: {
+      amount: string | null;
+      description: string | null;
+      type: string;
+    } = {
+      amount: null,
+      description: null,
+      type: 'expense',
+    };
+
+    if (this.isEdit) {
+      if (this.id === null || this.id === undefined) {
+        throw new Error('id is null or undefined');
+      }
+
+      const txns = this.transactionService.transactions$.value;
+      const txn = txns.find((txn) => txn.id === this.id);
+
+      if (txn === null || txn === undefined) {
+        throw new Error(`Transaction not found with id ${this.id}`);
+      }
+
+      defaultValues.amount = txn.amount.toString();
+      defaultValues.description = txn.description;
+      defaultValues.type = txn.type;
+    }
+
+    this.addTransactionForm = this.fb.group({
+      amount: new FormControl<string | null>(defaultValues.amount, [
+        Validators.required,
+      ]),
+      description: new FormControl<string | null>(defaultValues.description, [
+        Validators.required,
+      ]),
+      type: new FormControl<string>(defaultValues.type, {
+        nonNullable: true,
+        validators: [Validators.required],
+      }),
+    });
+  }
 
   onSave(): void {
     const formValues = this.addTransactionForm.getRawValue();
@@ -46,11 +106,19 @@ export class AddTransactionComponent {
           : TransactionType.income,
     };
 
-    this.transactionService.addTransaction(data);
+    if (this.isEdit) {
+      if (this.id === null || this.id === undefined) {
+        throw new Error('id is null or undefined');
+      }
+
+      this.transactionService.editTransaction(data, this.id);
+    } else {
+      this.transactionService.addTransaction(data);
+    }
 
     this.addTransactionForm.reset();
 
-    this.addTransaction.emit();
+    this.save.emit();
   }
 
   onKeyDownAmount(event: KeyboardEvent) {

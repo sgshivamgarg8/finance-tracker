@@ -22,8 +22,6 @@
   </div>
 
   <div class="modal-body">
-    <app-add-transaction
-      (addTransaction)="onTransactionAdd()"
-    ></app-add-transaction>
+    <app-add-transaction (save)="onTransactionSave()"></app-add-transaction>
   </div>
 </ng-template>
