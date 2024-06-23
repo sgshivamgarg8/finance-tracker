@@ -10,6 +10,11 @@
   <app-summary></app-summary>
 </div>
 
+<!-- charts -->
+<div class="mt-3">
+  <app-expense-chart></app-expense-chart>
+</div>
+
 <ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="modal-title">Add New Transaction</h4>
@@ -22,6 +27,8 @@
   </div>
 
   <div class="modal-body">
-    <app-add-edit-transaction (save)="onTransactionSave()"></app-add-edit-transaction>
+    <app-add-edit-transaction
+      (save)="onTransactionSave()"
+    ></app-add-edit-transaction>
   </div>
 </ng-template>
