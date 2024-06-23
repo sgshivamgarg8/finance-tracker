@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { ChartConfiguration } from 'chart.js';
 import { Observable, map } from 'rxjs';
 import { TransactionType } from 'src/app/models/transaction.model';
@@ -11,6 +12,7 @@ import { TransactionService } from 'src/app/services/transaction.service';
 })
 export class ExpenseChartComponent {
   private txnService = inject(TransactionService);
+  private router = inject(Router);
 
   barChartData$: Observable<ChartConfiguration<'bar'>['data']> =
     this.txnService.transactions$.pipe(

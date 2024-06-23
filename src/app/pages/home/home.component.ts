@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -7,6 +8,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
+  private router = inject(Router);
+
   private modalService = inject(NgbModal);
 
   openAddTransactionModal(content: any): void {
@@ -15,5 +18,9 @@ export class HomeComponent {
 
   onTransactionSave(): void {
     this.modalService.dismissAll();
+  }
+
+  navigateToCharts() {
+    this.router.navigate(['charts']);
   }
 }

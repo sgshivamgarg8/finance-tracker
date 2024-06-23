@@ -18,6 +18,7 @@ import { SummaryComponent } from './components/summary/summary.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgChartsModule } from 'ng2-charts';
 import { ExpenseChartComponent } from './components/expense-chart/expense-chart.component';
+import { ChartsComponent } from './pages/charts/charts.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ExpenseChartComponent } from './components/expense-chart/expense-chart.
     HomeComponent,
     SummaryComponent,
     ExpenseChartComponent,
+    ChartsComponent,
   ],
   imports: [
     BrowserModule,
