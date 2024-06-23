@@ -23,7 +23,7 @@ export class TransactionService {
       date: new Date(Date.now()),
     };
 
-    const newTransactions = [...this.transactions$.value, transaction];
+    const newTransactions = [transaction, ...this.transactions$.value];
 
     this.localStorageService.setItem(
       TRANSACTIONS_ARRAY_LOCAL_STORAGE_KEY,
