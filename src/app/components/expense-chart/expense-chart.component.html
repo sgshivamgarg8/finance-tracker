@@ -1,8 +1,13 @@
-<ng-container *ngIf="barChartData$ | async as data">
-  <canvas
-    baseChart
-    [data]="data"
-    [type]="'bar'"
-    [options]="barChartOptions"
-  ></canvas>
-</ng-container>
+<div class="card">
+  <div class="card-header">Expense Chart</div>
+  <div class="card-body">
+    <ng-container *ngIf="barChartData$ | async as data">
+      <canvas
+        baseChart
+        [data]="data"
+        [type]="'bar'"
+        [options]="barChartOptions"
+      ></canvas>
+    </ng-container>
+  </div>
+</div>

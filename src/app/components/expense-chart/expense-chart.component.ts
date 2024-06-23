@@ -50,6 +50,11 @@ export class ExpenseChartComponent {
 
   barChartOptions: ChartConfiguration<'bar'>['options'] = {
     backgroundColor: '#006bb7',
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
     scales: {
       x: {
         grid: {
