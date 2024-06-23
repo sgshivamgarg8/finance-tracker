@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ChartConfiguration } from 'chart.js';
-import { map } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { TransactionType } from 'src/app/models/transaction.model';
 import { TransactionService } from 'src/app/services/transaction.service';
 
@@ -12,26 +12,54 @@ import { TransactionService } from 'src/app/services/transaction.service';
 export class ExpenseChartComponent {
   private txnService = inject(TransactionService);
 
-  txnDataByDate$ = this.txnService.transactions$.pipe(
-    map((transactions) =>
-      transactions.filter((txn) => txn.type === TransactionType.expense),
-    ),
-    map((txns) => {
-      return Array.from(
-        txns.reduce(
-          (m, { date, amount }) => m.set(date, (m.get(date) || 0) + amount),
-          new Map(),
-        ),
-        ([date, amount]) => ({ date, amount }),
-      );
-    }),
-    map((txns) => {
-      console.log(txns);
-    }),
-  );
+  barChartData$: Observable<ChartConfiguration<'bar'>['data']> =
+    this.txnService.transactions$.pipe(
+      map((transactions) =>
+        transactions.filter((txn) => txn.type === TransactionType.expense),
+      ),
+      map((txns) => {
+        return Array.from(
+          txns.reduce(
+            (m, { date, amount }) => m.set(date, (m.get(date) || 0) + amount),
+            new Map(),
+          ),
+          ([date, amount]) => ({ date: new Date(date).toDateString(), amount }),
+        );
+      }),
+      map((txns: { date: string; amount: number }[]) => {
+        const obj: ChartConfiguration<'bar'>['data'] = {
+          datasets: [],
+        };
 
-  barChartData: ChartConfiguration<'bar'>['data'] = {
-    labels: ['2006', '2007', '2008', '2009', '2010', '2011', '2012'],
-    datasets: [{ data: [65, 59, 80, 81, 56, 55, 40], label: 'Expense' }],
+        obj.labels = txns.map((txn) => txn.date);
+        const data = txns.map((txn) => txn.amount);
+        obj.datasets = [
+          {
+            data: data,
+            label: 'Expense',
+            hoverBackgroundColor: '#006bb7',
+            barThickness: 20,
+          },
+        ];
+
+        return obj;
+      }),
+    );
+
+  barChartOptions: ChartConfiguration<'bar'>['options'] = {
+    backgroundColor: '#006bb7',
+    scales: {
+      x: {
+        grid: {
+          display: false,
+        },
+      },
+      y: {
+        grid: {
+          display: false,
+        },
+      },
+    },
+    indexAxis: 'y',
   };
 }

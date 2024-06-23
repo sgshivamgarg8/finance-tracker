@@ -1,3 +1,8 @@
-<canvas baseChart [data]="barChartData" [type]="'bar'"> </canvas>
-
-{{ txnDataByDate$ | async }}
+<ng-container *ngIf="barChartData$ | async as data">
+  <canvas
+    baseChart
+    [data]="data"
+    [type]="'bar'"
+    [options]="barChartOptions"
+  ></canvas>
+</ng-container>
