@@ -61,7 +61,8 @@ export class ExpenseChartComponent {
           display: false,
         },
         ticks: {
-          callback: function (val, index) {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          callback: function (val, _) {
             return '\u20b9' + val;
           },
         },

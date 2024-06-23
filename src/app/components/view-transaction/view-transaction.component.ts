@@ -15,8 +15,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ViewTransactionComponent {
   @Input({ required: true }) transaction!: Transaction;
-  private modalService = inject(NgbModal);
 
+  private modalService = inject(NgbModal);
   private transactionService = inject(TransactionService);
 
   eTransactionType = TransactionType;
@@ -29,7 +29,7 @@ export class ViewTransactionComponent {
   }
 
   /** open form modal on edit click */
-  onEditClick(content: any): void {
+  onEditClick(content: unknown): void {
     this.modalService.open(content, { size: 'xl', centered: true });
   }
 

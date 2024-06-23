@@ -54,7 +54,7 @@ export class AddEditTransactionComponent implements OnInit {
   calendarIcon = faCalendar;
 
   ngOnInit(): void {
-    let defaultValues: {
+    const defaultValues: {
       amount: string | null;
       description: string | null;
       type: string;
