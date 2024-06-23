@@ -19,6 +19,7 @@ type TransactionForm = {
   amount: FormControl<string | null>;
   description: FormControl<string | null>;
   type: FormControl<string>;
+  category: FormControl<string>;
 };
 
 @Component({
@@ -28,7 +29,7 @@ type TransactionForm = {
 })
 export class AddEditTransactionComponent implements OnInit {
   private fb = inject(FormBuilder);
-  private transactionService = inject(TransactionService);
+  public transactionService = inject(TransactionService);
 
   /** To be passed to edit the txn */
   @Input() isEdit = false;
@@ -51,10 +52,12 @@ export class AddEditTransactionComponent implements OnInit {
       amount: string | null;
       description: string | null;
       type: string;
+      category: string;
     } = {
       amount: null,
       description: null,
       type: 'expense',
+      category: 'general',
     };
 
     if (this.isEdit) {
@@ -85,6 +88,10 @@ export class AddEditTransactionComponent implements OnInit {
         nonNullable: true,
         validators: [Validators.required],
       }),
+      category: new FormControl(defaultValues.category, {
+        nonNullable: true,
+        validators: [Validators.required],
+      }),
     });
   }
 
@@ -104,6 +111,7 @@ export class AddEditTransactionComponent implements OnInit {
         formValues.type === 'expense'
           ? TransactionType.expense
           : TransactionType.income,
+      category: formValues.category,
     };
 
     if (this.isEdit) {

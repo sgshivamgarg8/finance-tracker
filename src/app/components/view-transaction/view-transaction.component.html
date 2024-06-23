@@ -7,18 +7,23 @@
   "
 >
   <div class="card-header">
-    <div class="d-flex justify-content-between">
-      <!-- description -->
-      <div class="text-truncate" [ngbTooltip]="transaction.description">
-        {{ transaction.description }}
+    <div class="d-flex justify-content-between gap-3">
+      <!-- icon and name -->
+      <div class="d-flex gap-3" style="flex: 1; min-width: 0">
+        <fa-icon
+          [icon]="getCategory(transaction.category).icon"
+          [ngbTooltip]="getCategory(transaction.category).name"
+        ></fa-icon>
+        <div class="text-truncate" [ngbTooltip]="transaction.description">
+          {{ transaction.description }}
+        </div>
       </div>
 
       <!-- icons -->
-      <div>
+      <div class="d-flex gap-3">
         <fa-icon
           [icon]="editIcon"
           (click)="onEditClick(content)"
-          class="me-3"
           role="button"
           ngbTooltip="Edit"
           aria-label="Edit"

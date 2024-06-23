@@ -1,8 +1,18 @@
 import { Injectable, inject } from '@angular/core';
+import {
+  faBoltLightning,
+  faCar,
+  faCartShopping,
+  faFilm,
+  faHome,
+  faReceipt,
+  faSchool,
+  faUtensils,
+} from '@fortawesome/free-solid-svg-icons';
 import { v4 as uuidv4 } from 'uuid';
 import { Transaction } from '../models/transaction.model';
-import { LocalStorageService } from './local-storage.service';
 import { TRANSACTIONS_ARRAY_LOCAL_STORAGE_KEY } from '../utils/constants';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +25,17 @@ export class TransactionService {
   transactions$ = this.localStorageService.getItem<Transaction[]>(
     TRANSACTIONS_ARRAY_LOCAL_STORAGE_KEY,
   );
+
+  categoryOptions = [
+    { key: 'general', name: 'General', icon: faReceipt },
+    { key: 'food', name: 'Food', icon: faUtensils },
+    { key: 'shopping', name: 'Shopping', icon: faCartShopping },
+    { key: 'entertainment', name: 'Entertainment', icon: faFilm },
+    { key: 'home', name: 'Home', icon: faHome },
+    { key: 'life', name: 'Life', icon: faSchool },
+    { key: 'transportation', name: 'Transportation', icon: faCar },
+    { key: 'utilities', name: 'Utilities', icon: faBoltLightning },
+  ];
 
   addTransaction(transactionData: Omit<Transaction, 'id' | 'date'>): void {
     const transaction: Transaction = {

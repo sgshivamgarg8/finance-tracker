@@ -58,6 +58,29 @@
       </div>
     </div>
 
+    <!-- Category -->
+    <div class="col-12 col-sm-6 col-md-6 col-lg-4">
+      <label class="form-label" for="category">Category</label>
+      <ng-select
+        labelForId="category"
+        [items]="transactionService.categoryOptions"
+        formControlName="category"
+        bindLabel="name"
+        bindValue="key"
+        [clearable]="false"
+        [searchable]="false"
+      ></ng-select>
+      <div
+        class="invalid-message"
+        *ngIf="
+          addTransactionForm.controls.category.touched &&
+          addTransactionForm.controls.category.errors?.['required']
+        "
+      >
+        Category is required
+      </div>
+    </div>
+
     <!-- Type -->
     <div class="col-12 col-sm-6 col-md-6 col-lg-4">
       <label class="form-label" for="type">Type</label>

@@ -4,6 +4,7 @@ export interface Transaction {
   type: TransactionType;
   date: Date;
   id: string;
+  category: string;
 }
 
 export enum TransactionType {
