@@ -60,6 +60,11 @@ export class ExpenseChartComponent {
         grid: {
           display: false,
         },
+        ticks: {
+          callback: function (val, index) {
+            return '\u20b9' + val;
+          },
+        },
       },
       y: {
         grid: {
