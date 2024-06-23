@@ -12,14 +12,18 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { faCalendar } from '@fortawesome/free-solid-svg-icons';
+import { DateObj } from 'src/app/models/date.model';
 import { Transaction, TransactionType } from 'src/app/models/transaction.model';
 import { TransactionService } from 'src/app/services/transaction.service';
+import { AppDate } from 'src/app/utils/date.class';
 
 type TransactionForm = {
   amount: FormControl<string | null>;
   description: FormControl<string | null>;
   type: FormControl<string>;
   category: FormControl<string>;
+  date: FormControl<DateObj>;
 };
 
 @Component({
@@ -47,17 +51,21 @@ export class AddEditTransactionComponent implements OnInit {
 
   addTransactionForm!: FormGroup<TransactionForm>;
 
+  calendarIcon = faCalendar;
+
   ngOnInit(): void {
     let defaultValues: {
       amount: string | null;
       description: string | null;
       type: string;
       category: string;
+      date: DateObj;
     } = {
       amount: null,
       description: null,
       type: 'expense',
       category: 'general',
+      date: AppDate.getDateObjFromDate(new Date()),
     };
 
     if (this.isEdit) {
@@ -75,6 +83,7 @@ export class AddEditTransactionComponent implements OnInit {
       defaultValues.amount = txn.amount.toString();
       defaultValues.description = txn.description;
       defaultValues.type = txn.type;
+      defaultValues.date = AppDate.getDateObjFromDate(new Date(txn.date));
     }
 
     this.addTransactionForm = this.fb.group({
@@ -92,6 +101,10 @@ export class AddEditTransactionComponent implements OnInit {
         nonNullable: true,
         validators: [Validators.required],
       }),
+      date: new FormControl(defaultValues.date, {
+        nonNullable: true,
+        validators: [Validators.required],
+      }),
     });
   }
 
@@ -104,7 +117,7 @@ export class AddEditTransactionComponent implements OnInit {
       );
     }
 
-    const data: Omit<Transaction, 'id' | 'date'> = {
+    const data: Omit<Transaction, 'id'> = {
       amount: parseInt(formValues.amount),
       description: formValues.description,
       type:
@@ -112,6 +125,7 @@ export class AddEditTransactionComponent implements OnInit {
           ? TransactionType.expense
           : TransactionType.income,
       category: formValues.category,
+      date: AppDate.getDateFromDateObj(formValues.date),
     };
 
     if (this.isEdit) {

@@ -37,11 +37,10 @@ export class TransactionService {
     { key: 'utilities', name: 'Utilities', icon: faBoltLightning },
   ];
 
-  addTransaction(transactionData: Omit<Transaction, 'id' | 'date'>): void {
+  addTransaction(transactionData: Omit<Transaction, 'id'>): void {
     const transaction: Transaction = {
       ...transactionData,
       id: uuidv4(),
-      date: new Date(Date.now()),
     };
 
     const newTransactions = [transaction, ...this.transactions$.value];
@@ -52,10 +51,7 @@ export class TransactionService {
     );
   }
 
-  editTransaction(
-    transactionData: Omit<Transaction, 'id' | 'date'>,
-    id: string,
-  ): void {
+  editTransaction(transactionData: Omit<Transaction, 'id'>, id: string): void {
     const txns = this.transactions$.value;
     const index = txns.findIndex((txn) => txn.id === id);
     const txn = txns[index];
