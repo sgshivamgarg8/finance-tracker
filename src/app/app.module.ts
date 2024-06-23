@@ -16,6 +16,9 @@ import { ViewTransactionComponent } from './components/view-transaction/view-tra
 import { HomeComponent } from './pages/home/home.component';
 import { SummaryComponent } from './components/summary/summary.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgChartsModule } from 'ng2-charts';
+import { ExpenseChartComponent } from './components/expense-chart/expense-chart.component';
+import { ChartsComponent } from './pages/charts/charts.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +28,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     AddEditTransactionComponent,
     HomeComponent,
     SummaryComponent,
+    ExpenseChartComponent,
+    ChartsComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,6 +40,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     NgbTooltipModule,
     FontAwesomeModule,
     NgbDatepickerModule,
+    NgChartsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

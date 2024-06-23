@@ -10,6 +10,10 @@
   <app-summary></app-summary>
 </div>
 
+<button class="btn btn-secondary mt-3" (click)="navigateToCharts()">
+  Show Charts
+</button>
+
 <ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="modal-title">Add New Transaction</h4>
@@ -22,6 +26,8 @@
   </div>
 
   <div class="modal-body">
-    <app-add-edit-transaction (save)="onTransactionSave()"></app-add-edit-transaction>
+    <app-add-edit-transaction
+      (save)="onTransactionSave()"
+    ></app-add-edit-transaction>
   </div>
 </ng-template>
