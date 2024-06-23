@@ -9,7 +9,7 @@
   <div class="card-header">
     <div class="d-flex justify-content-between gap-3">
       <!-- icon and name -->
-      <div class="d-flex gap-3" style="flex: 1; min-width: 0">
+      <div class="d-flex gap-2" style="flex: 1; min-width: 0">
         <fa-icon
           [icon]="getCategory(transaction.category).icon"
           [ngbTooltip]="getCategory(transaction.category).name"
@@ -25,6 +25,7 @@
           [icon]="editIcon"
           (click)="onEditClick(content)"
           role="button"
+          class="text-secondary"
           ngbTooltip="Edit"
           aria-label="Edit"
         ></fa-icon>
@@ -32,6 +33,7 @@
           [icon]="deleteIcon"
           (click)="onDeleteClick(transaction.id)"
           role="button"
+          class="text-danger"
           ngbTooltip="Delete"
           aria-label="Delete"
         ></fa-icon>
