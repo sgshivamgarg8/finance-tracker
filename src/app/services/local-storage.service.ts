@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 interface ICache {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: BehaviorSubject<any>;
 }
-type serializable = object | Object;
+type serializable = object;
 
 @Injectable({
   providedIn: 'root',

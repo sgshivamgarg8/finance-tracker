@@ -12,7 +12,7 @@ export class HomeComponent {
 
   private modalService = inject(NgbModal);
 
-  openAddTransactionModal(content: any): void {
+  openAddTransactionModal(content: unknown): void {
     this.modalService.open(content, { size: 'xl', centered: true });
   }
 

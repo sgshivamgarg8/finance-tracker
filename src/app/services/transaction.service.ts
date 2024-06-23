@@ -18,8 +18,6 @@ import { LocalStorageService } from './local-storage.service';
   providedIn: 'root',
 })
 export class TransactionService {
-  constructor() {}
-
   private localStorageService = inject(LocalStorageService);
 
   transactions$ = this.localStorageService.getItem<Transaction[]>(
