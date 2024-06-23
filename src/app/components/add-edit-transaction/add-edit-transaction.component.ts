@@ -125,7 +125,7 @@ export class AddEditTransactionComponent implements OnInit {
           ? TransactionType.expense
           : TransactionType.income,
       category: formValues.category,
-      date: AppDate.getDateFromDateObj(formValues.date),
+      date: AppDate.getDateFromDateObj(formValues.date).toISOString(),
     };
 
     if (this.isEdit) {
